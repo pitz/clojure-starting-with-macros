@@ -1,17 +1,13 @@
 (ns macrosproject.core
   (:gen-class))
 
-(def order-details
-    {:name "Mitchard Blimmons"
-     :email "mitchardgmail.com"})
-
 (def order-details-validations
     {:name
-     ["Please enter a name" not-empty]
+     ["Por favor, informe o seu nome." not-empty]
     
      :email
-     ["Please enter an email" not-empty
-      "Your email address doesn't like an valida email"
+     ["Por favor, informe o seu e-mail." not-empty
+      "O e-mail informado não é válido."
       #(or (empty? %) (re-seq #"@" %))]})
 
 (defn error-messages-for
@@ -34,10 +30,17 @@
 
 
 
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
+(defn -main [& args]
+  (println "Validando ->")
+  
+  (def order-details
+      {:name "Eduardo Pitz"
+       :email "eduardo.pitz@nubank.com.br"})
+  
+  (def order-ditails
+      {:name "Eduardo Pix"
+       :email "eduardo.pixnubank.com.br"})
 
-  (println "VALIDAÇÃO:")
   (println (validate order-details order-details-validations))
+  (println (validate order-ditails order-details-validations))
 )
